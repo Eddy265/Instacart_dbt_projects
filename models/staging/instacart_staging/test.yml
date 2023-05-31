@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: stg_aisles
+    columns: 
+      - name: aisle_id
+        description: primary key for stg_aisle
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_department
+    description: one order per customer
+    columns:
+      - name: department_id
+        description: primary key for stg_department
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_products
+    columns:
+      - name: product_id
+        description: primary key for stg_products
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_orders
+    columns:
+      - name: order_id
+        description: primary key for stg_orders
+        tests:
+          - unique
+          - not_null
+      - name: order_status
+        description: '{{ doc("order_status") }}'
+        tests:
+          - accepted_values:
+              values:
+                - Delivered
+                - Shipped
+                - Processing
+  
+               

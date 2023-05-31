@@ -1,0 +1,24 @@
+version: 2
+
+sources:
+  - name: Instacart
+    description: a clone of the postgres raw database of the instacart.
+    database: Instacart
+    schema: public
+    tables:
+      - name: aisles
+        description: raw data for the aisles table     
+
+      - name: products
+        description: raw data for the products table
+        
+
+      - name: department
+        description: raw data for the department table
+        
+      - name: orders
+        description: raw data for the department table
+        
+
+  
+    
