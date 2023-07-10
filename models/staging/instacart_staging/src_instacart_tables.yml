@@ -18,6 +18,9 @@ sources:
         
       - name: orders
         description: raw data for the department table
+
+      - name: department_total_sales
+        description: total sales table
         
 
   
