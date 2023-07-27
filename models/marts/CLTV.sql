@@ -1,5 +1,9 @@
 --customer life time value
 
+{{
+    config (materialized = 'table')
+}}
+
 WITH products as (
     select * from {{ref ('stg_products')}} 
 ),
