@@ -18,6 +18,7 @@ customers AS (
 
 cltv AS (
     SELECT CONCAT(first_name, ' ', last_name) AS customer_name,
+            COUNT(order_id) AS number_of_orders,
             sum(order_total_amount) AS cltv
     FROM orders o
     JOIN products USING (product_id)
