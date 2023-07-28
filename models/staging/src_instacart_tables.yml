@@ -17,9 +17,10 @@ sources:
         description: raw data for the department table
         
       - name: orders
-        description: raw data for the department table
+        description: raw data for the orders table
 
-      
+      - name: customers
+        description: raw data for the customers table
         
 
   

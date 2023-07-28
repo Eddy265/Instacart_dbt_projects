@@ -4,20 +4,27 @@
     config (materialized = 'table')
 }}
 
-WITH products as (
-    select * from {{ref ('stg_products')}} 
+WITH products AS (
+    SELECT * FROM {{ref ('stg_products')}} 
 ),
-orders as (
-    select * from {{ ref('fct_orders')}} 
+orders AS (
+    SELECT * FROM {{ ref('fct_orders')}} 
 ),
-cltv as (
-    select customer_id,
-            sum(orders.quantity * products.unit_price) as cltv
-    from orders
-    join products USING (product_id)
-    group by 1
-    order by cltv desc
+
+customers AS (
+    SELECT *
+    FROM {{ref ("stg_customers")}}
+),
+
+cltv AS (
+    SELECT CONCAT(first_name, ' ', last_name) AS customer_name,
+            sum(order_total_amount) AS cltv
+    FROM orders o
+    JOIN products USING (product_id)
+    JOIN customers c on o.customer_id = c.customer_id
+    GROUP BY 1
+    ORDER BY cltv desc
 )
 
-select * from cltv
+SELECT * FROM cltv
 
