@@ -1,4 +1,7 @@
 --fact table for orders
+{{
+    config (materialized = 'table')
+}}
 
 WITH product AS (
     SELECT product_id, unit_price, unit_cost
@@ -25,7 +28,6 @@ FINAL AS (SELECT o.order_id,
         p.unit_price - p.unit_cost AS profit 
 FROM product p 
 JOIN orders o on p.product_id = o.product_id
---GROUP BY o.order_id, o.customer_id
-)
+ORDER BY profit DESC)
 
 select * from FINAL
