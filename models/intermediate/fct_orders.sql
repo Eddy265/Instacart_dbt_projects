@@ -32,7 +32,7 @@ FINAL AS (
     FROM product p 
     JOIN orders o ON p.product_id = o.product_id
     {% if is_incremental() %}
-    WHERE order_id >= (SELECT max(order_id) FROM {{ ref('stg_orders') }})
+    WHERE order_id >= (SELECT max(order_id) FROM {{ this }})
     {% endif %}
     ORDER BY order_id DESC
 )
