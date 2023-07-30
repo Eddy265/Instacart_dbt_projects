@@ -13,7 +13,7 @@ rev_orders as (
     select 
             products.product_id,
             products.product_name,
-            sum(orders.quantity * products.unit_price) as Revenue
+            sum(order_total_amount) as Revenue
     from orders
     join products USING (product_id)
     WHERE products.product_name ILIKE '%non-alcoholic%' 
