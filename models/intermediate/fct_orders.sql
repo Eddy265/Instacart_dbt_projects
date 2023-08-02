@@ -28,7 +28,7 @@ FINAL AS (
            p.unit_price,
            p.unit_cost,
            o.quantity * p.unit_price AS order_total_amount,
-           p.unit_price - p.unit_cost AS profit 
+           (p.unit_price - p.unit_cost) * quantity AS profit
     FROM product p 
     JOIN orders o ON p.product_id = o.product_id
     {% if is_incremental() %}
