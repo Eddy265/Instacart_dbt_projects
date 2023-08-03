@@ -1,7 +1,17 @@
-select product_id,
+
+WITH source AS (
+
+    SELECT * FROM {{ source('Instacart', 'products') }}
+),
+
+renamed AS (
+    SELECT product_id,
         product_name,
-        unit_price,
         department_id,
         aisle_id,
+        unit_price,
         unit_cost
-from {{ source('Instacart', 'products') }}
+FROM source
+)
+
+SELECT * FROM renamed

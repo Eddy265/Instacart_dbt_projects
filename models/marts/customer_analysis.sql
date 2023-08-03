@@ -43,6 +43,7 @@ churned_customers AS (
 SELECT
     cust.customer_id,
     cust.customer_name,
+    cust.country,
     churned_customers.churn_status,
     p.product_name AS most_preferred_product,
     c.total_purchase_count,

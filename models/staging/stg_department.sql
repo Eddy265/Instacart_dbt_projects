@@ -1,4 +1,13 @@
-select 
+WITH source AS (
+    SELECT 
+    *
+    FROM {{ source('Instacart', 'department') }}
+),
+renamed AS (
+    SELECT 
     department_id,
     department
-from {{ source('Instacart', 'department') }}
+    FROM source
+)
+
+SELECT * FROM renamed

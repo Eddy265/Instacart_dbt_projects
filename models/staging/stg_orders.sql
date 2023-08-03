@@ -1,4 +1,12 @@
-select order_id,
+WITH source AS (
+
+    SELECT * FROM {{ source('Instacart', 'orders') }}
+
+),
+
+renamed as (
+
+    SELECT order_id,
         customer_id,
         order_dow,
         order_hour_of_day,
@@ -7,4 +15,8 @@ select order_id,
         quantity,
         order_date,
         order_status
-from {{ source('Instacart', 'orders') }}
+    from source
+)
+
+select * from renamed
+
