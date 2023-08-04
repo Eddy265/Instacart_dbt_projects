@@ -15,7 +15,8 @@ orders AS (
            customer_id,
            product_id,
            quantity,
-           order_date
+           order_date,
+           delivery_date
     FROM {{ ref('stg_orders') }}
 ),
 
@@ -24,11 +25,13 @@ FINAL AS (
            o.customer_id,
            o.product_id,
            o.order_date,
+           o.delivery_date,
            o.quantity,
            p.unit_price,
            p.unit_cost,
            o.quantity * p.unit_price AS order_total_amount,
-           (p.unit_price - p.unit_cost) * quantity AS profit
+           (p.unit_price - p.unit_cost) * quantity AS profit,
+            o.delivery_date - o.order_date AS days_to_deliver
     FROM product p 
     JOIN orders o ON p.product_id = o.product_id
     {% if is_incremental() %}

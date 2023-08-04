@@ -58,5 +58,5 @@ JOIN orders o ON cust.customer_id = o.customer_id
 JOIN (SELECT customer_id, AVG(order_total_amount) AS coefficient FROM orders GROUP BY customer_id) CLTV ON cust.customer_id = CLTV.customer_id
 LEFT JOIN churned_customers ON cust.customer_id = churned_customers.customer_id
 WHERE c.rn = 1
-GROUP BY cust.customer_id, cust.customer_name, churned_customers.churn_status, p.product_name, c.total_purchase_count, CLTV.coefficient
+GROUP BY cust.customer_id, cust.customer_name, churned_customers.churn_status, p.product_name, c.total_purchase_count, CLTV.coefficient, cust.country
 ORDER BY cust.customer_id

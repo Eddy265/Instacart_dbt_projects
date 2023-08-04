@@ -19,7 +19,6 @@ aisles as (
 )
 SELECT  
 	    department,
-     --COALESCE(department, 'Total Profit') as department,
       SUM(profit) AS profit,
       SUM(order_total_amount) AS total_revenue
 FROM pro 
@@ -30,8 +29,5 @@ JOIN aisles ON pro.aisle_id = aisles.aisle_id
 JOIN orders o on pro.product_id = o.product_id
 
 GROUP BY 1
---GROUP BY ROLLUP (department) 
-
 ORDER BY profit desc
 
---OFFSET 1

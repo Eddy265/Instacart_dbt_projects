@@ -7,20 +7,69 @@ sources:
     schema: public
     tables:
       - name: aisles
-        description: raw data for the aisles table     
+        description: raw data for the aisles table   
+        columns:
+          - name: aisle_id
+            description: primary key for the aisles table
+            tests: 
+              - unique
+              - not_null  
 
       - name: products
         description: raw data for the products table
-        
+        columns:
+          - name: product_id
+            description: primary key for the products table
+            tests: 
+              - unique
+              - not_null
+              - relationships:
+                  to: source('Instacart', 'orders')
+                  field: product_id
 
       - name: department
         description: raw data for the department table
-        
+        columns:
+          - name: department_id
+            description: primary key for the department table
+            tests: 
+              - unique
+              - not_null
+              - relationships:
+                  to: ref('Instacart', 'products')
+                  field: department_id
+
       - name: orders
         description: raw data for the orders table
+        columns:
+          - name: order_id
+            description: primary key for the orders table
+            tests: 
+              - unique
+              - not_null
+
+          - name: order_status
+            description: '{{ doc("order_status") }}'
+            tests:
+              - accepted_values:
+                  values:
+                    - Delivered
+                    - Shipped
+                    - Processing
+              
 
       - name: customers
         description: raw data for the customers table
+        columns:
+          - name: customer_id
+            description: primary key for the customers table
+            tests: 
+              - unique
+              - not_null
+              - relationships:
+                  to: ref('Instacart', 'orders')
+                  field: customer_id
+
         
 
   
