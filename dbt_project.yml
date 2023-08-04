@@ -34,12 +34,12 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   Instacart_dbt_projects:
     # Config indicated by + and applies to all files under models/marts/instacart
-    marts:
-      +materialized: table
-      +schema: dev
-    staging:
-      +materialized: view
-      +schema: dev
-    intermediate:
-      +materialized: view
-      +schema: dev
+    # marts:
+    #   +materialized: table
+    #   +schema: dev
+    # staging:
+    #   +materialized: view
+    #   +schema: dev
+    # intermediate:
+    #   +materialized: view
+    #   +schema: dev

@@ -37,7 +37,8 @@ sources:
               - not_null
               - relationships:
                   to: ref('Instacart', 'products')
-                  field: department_id
+                  field: department_id_id
+              
 
       - name: orders
         description: raw data for the orders table
@@ -69,8 +70,7 @@ sources:
               - relationships:
                   to: ref('Instacart', 'orders')
                   field: customer_id
-
-        
-
+  
+       
   
     

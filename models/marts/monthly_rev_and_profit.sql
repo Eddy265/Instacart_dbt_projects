@@ -3,14 +3,18 @@
     config (materialized = 'table')
 }}
 
+WITH orders AS (
+    SELECT * FROM {{ref ("fct_orders")}}
+),
 
-WITH monthly_rev_profit AS (
+monthly_rev_profit AS (
     SELECT
-        date_trunc('month', order_date)::date as months,
+        to_char(order_date, 'YYYY-MM') AS Months,
+        --date_trunc('month', order_date)::date as months,
         SUM(order_total_amount) AS Total_Revenue,
         SUM(profit) AS Total_profit
-    FROM {{ref ("fct_orders")}}
-    GROUP BY date_trunc('month', order_date)::date
+    FROM orders
+    GROUP BY to_char(order_date, 'YYYY-MM')
 )
 
 SELECT * FROM monthly_rev_profit

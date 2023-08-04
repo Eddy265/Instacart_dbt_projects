@@ -49,8 +49,14 @@ SELECT
     c.total_purchase_count,
     SUM(o.order_total_amount) AS total_spend,
     COUNT(DISTINCT o.order_id) AS total_orders,
-    SUM(o.order_total_amount) / COUNT(DISTINCT o.order_id) AS average_spend,
-    ROUND((CLTV.coefficient * SUM(o.order_total_amount) / COUNT(DISTINCT o.order_id)), 2) AS cltv
+    ROUND(SUM(o.order_total_amount) / COUNT(DISTINCT o.order_id),2) AS average_spend,
+    ROUND((CLTV.coefficient * SUM(o.order_total_amount) / COUNT(DISTINCT o.order_id)), 2) AS cltv,
+    CASE
+            WHEN SUM(o.order_total_amount) >= 160000 AND COUNT(DISTINCT o.order_id) >= 1100 THEN 'High-Value Frequent'
+            WHEN SUM(o.order_total_amount) >= 155000 AND COUNT(DISTINCT o.order_id) < 1100 THEN 'High-Value Occasional'
+            WHEN SUM(o.order_total_amount) < 150000 AND COUNT(DISTINCT o.order_id) >= 10 THEN 'Low-Value Frequent'
+            ELSE 'Low-Value Occasional'
+        END AS customer_segment
 FROM customer_most_preferred_product c
 JOIN customers cust ON c.customer_id = cust.customer_id
 JOIN products p ON c.most_preferred_product = p.product_id
