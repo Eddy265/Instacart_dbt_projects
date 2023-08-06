@@ -65,4 +65,3 @@ JOIN (SELECT customer_id, AVG(order_total_amount) AS coefficient FROM orders GRO
 LEFT JOIN churned_customers ON cust.customer_id = churned_customers.customer_id
 WHERE c.rn = 1
 GROUP BY cust.customer_id, cust.customer_name, churned_customers.churn_status, p.product_name, c.total_purchase_count, CLTV.coefficient, cust.country
-ORDER BY cust.customer_id

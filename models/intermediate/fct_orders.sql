@@ -6,7 +6,7 @@
 }}
 
 WITH product AS (
-    SELECT product_id, unit_price, unit_cost
+    SELECT product_id, unit_price, unit_cost, department_id
     FROM {{ ref("stg_products") }} 
 ),
 
@@ -16,7 +16,8 @@ orders AS (
            product_id,
            quantity,
            order_date,
-           delivery_date
+           delivery_date,
+           order_status
     FROM {{ ref('stg_orders') }}
 ),
 
@@ -24,11 +25,13 @@ FINAL AS (
     SELECT o.order_id, 
            o.customer_id,
            o.product_id,
+           p.department_id,
            o.order_date,
            o.delivery_date,
            o.quantity,
            p.unit_price,
            p.unit_cost,
+           order_status,
            o.quantity * p.unit_price AS order_total_amount,
            (p.unit_price - p.unit_cost) * quantity AS profit,
             o.delivery_date - o.order_date AS days_to_deliver
@@ -37,7 +40,6 @@ FINAL AS (
     {% if is_incremental() %}
     WHERE order_id >= (SELECT max(order_id) FROM {{ this }})
     {% endif %}
-    ORDER BY order_id DESC
 )
 
 SELECT * FROM FINAL

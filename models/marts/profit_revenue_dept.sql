@@ -29,5 +29,4 @@ JOIN aisles ON pro.aisle_id = aisles.aisle_id
 JOIN orders o on pro.product_id = o.product_id
 
 GROUP BY 1
-ORDER BY profit desc
 

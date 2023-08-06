@@ -8,7 +8,9 @@ name_merge AS (
         email,
         address,
         phone_number,
-        country
+        country,
+        age,
+        gender
 FROM source
 )
 
