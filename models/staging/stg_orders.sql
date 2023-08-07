@@ -1,3 +1,4 @@
+
 WITH source AS (
 
     SELECT * FROM {{ source('Instacart', 'orders') }}
@@ -15,9 +16,10 @@ renamed as (
         quantity,
         order_date,
         order_status,
-        delivery_date
+        delivery_date,
+        updated_at
     from source
 )
 
-select * from renamed
+SELECT * from renamed 
 
